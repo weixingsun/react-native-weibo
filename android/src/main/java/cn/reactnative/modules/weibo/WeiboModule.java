@@ -57,6 +57,8 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
+//import com.sina.weibo.sdk.openapi.UsersAPI;
+//import com.sina.weibo.sdk.net.RequestListener;
 
 import java.util.Date;
 
@@ -70,17 +72,17 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
     public WeiboModule(ReactApplicationContext reactContext) {
         super(reactContext);
         ApplicationInfo appInfo = null;
-        try {
+        /*try {
             appInfo = reactContext.getPackageManager().getApplicationInfo(reactContext.getPackageName(), PackageManager.GET_META_DATA);
         } catch (PackageManager.NameNotFoundException e) {
             throw new Error(e);
         }
-        if (!appInfo.metaData.containsKey("WB_APPID")){
+        if (!appInfo.metaData.containsKey("wb_app_id")){
             throw new Error("meta-data WB_APPID not found in AndroidManifest.xml");
         }
         this.appId = appInfo.metaData.get("WB_APPID").toString();
         this.appId = this.appId.substring(2);
-
+        */
     }
 
     private static final String RCTWBEventName = "Weibo_Resp";
@@ -104,6 +106,24 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
     private static final String RCTWBShareAccessToken = "accessToken";
 
     private static WeiboModule gModule = null;
+
+    /*private RequestListener userListener = new RequestListener() {
+        //@Override
+        public void onComplete(String response) {
+            if (!TextUtils.isEmpty(response)) {
+                LogUtil.i(TAG, response);
+                // User#parse parse JSON to User
+                User user = User.parse(response);
+                if (user != null) {
+                    Toast.makeText(WBUserAPIActivity.this,
+                            "User:" + user.screen_name,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(WBUserAPIActivity.this, response, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    };*/
 
     @Override
     public void initialize() {
@@ -140,6 +160,8 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
         mSinaSsoHandler = new SsoHandler(getCurrentActivity(), sinaAuthInfo);
         mSinaSsoHandler.authorize(this.genWeiboAuthListener());
         callback.invoke();
+        //UsersAPI mUsersAPI = new UsersAPI(getReactApplicationContext(), this.appId, mAccessToken);
+        //mUsersAPI.show(uid, userListener);
     }
     @ReactMethod
     public void shareToWeibo(final ReadableMap data, Callback callback){
@@ -208,6 +230,8 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
                     event.putString("userID", token.getUid());
                     event.putString("refreshToken", token.getRefreshToken());
                     event.putInt("errCode", 0);
+                    //UsersAPI mUsersAPI = new UsersAPI(getReactApplicationContext(), appId, token.getToken());
+                    //mUsersAPI.show(token.getUid(), userListener);
                 } else {
 //                    String code = bundle.getString("code", "");
                     event.putInt("errCode", -1);
@@ -357,6 +381,10 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
         if (config.hasKey("scope")) {
             scope = config.getString("scope");
         }
+        if (config.hasKey("appid")) {
+            this.appId = config.getString("appid");
+        }
+        Log.e("react-native-weibp","appid:"+this.appId+", redirectURI:"+redirectURI);
         final AuthInfo sinaAuthInfo = new AuthInfo(getReactApplicationContext(), this.appId, redirectURI, scope);
         return sinaAuthInfo;
     }

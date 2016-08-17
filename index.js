@@ -67,24 +67,21 @@ const defaultScope = "all"
 const defaultRedirectURI = "https://api.weibo.com/oauth2/default.html"
 
 function checkData(data) {
-    if(!data.redirectURI) {
         data.redirectURI = defaultRedirectURI
-    }
-    if(!data.scope) {
         data.scope = defaultScope
-    }
 }
 
 const nativeSendAuthRequest = wrapApi(WeiboAPI.login);
 const nativeSendMessageRequest = wrapApi(WeiboAPI.shareToWeibo);
 
 export function login(config={}) {
-    checkData(config)
+    //let config = {redirectURI:"http://www.weibo.com",scope:"all"}
+    //let config = {redirectURI:"https://api.weibo.com/oauth2/default.html",scope:"all"}
     return Promise.all([waitForResponse('WBAuthorizeResponse'), nativeSendAuthRequest(config)]).then(v=>v[0]);
 }
 
-export function share(data) {
-    checkData(data)
-    return Promise.all([waitForResponse('WBSendMessageToWeiboResponse'), nativeSendMessageRequest(data)]).then(v=>v[0]);
+export function share() {
+    let config = {redirectURI:"https://api.weibo.com/oauth2/default.html",scope:"all"}
+    return Promise.all([waitForResponse('WBSendMessageToWeiboResponse'), nativeSendMessageRequest(config)]).then(v=>v[0]);
 }
 

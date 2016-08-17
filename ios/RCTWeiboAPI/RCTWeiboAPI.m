@@ -271,6 +271,7 @@ RCT_EXPORT_METHOD(shareToWeibo:(NSDictionary *)aData
     if (!success) {
         NSMutableDictionary *body = [NSMutableDictionary new];
         body[@"errMsg"] = INVOKE_FAILED;
+        body[@"line"] = @(274);
         body[@"errCode"] = @(-1);
         body[@"type"] = @"WBSendMessageToWeiboResponse";
         [_bridge.eventDispatcher sendAppEventWithName:RCTWBEventName body:body];
