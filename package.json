@@ -1,15 +1,65 @@
 {
-  "name": "react-native-weibo",
-  "version": "1.0.5",
+  "_args": [
+    [
+      {
+        "raw": "react-native-weibo@^1.0.5",
+        "scope": null,
+        "escapedName": "react-native-weibo",
+        "name": "react-native-weibo",
+        "rawSpec": "^1.0.5",
+        "spec": ">=1.0.5 <2.0.0",
+        "type": "range"
+      },
+      "/Users/weixingsun/share"
+    ]
+  ],
+  "_from": "react-native-weibo@>=1.0.5 <2.0.0",
+  "_id": "react-native-weibo@1.0.5",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/react-native-weibo",
+  "_nodeVersion": "5.0.0",
+  "_npmUser": {
+    "name": "lvbingru",
+    "email": "lvbingru@gmail.com"
+  },
+  "_npmVersion": "3.3.6",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-weibo@^1.0.5",
+    "scope": null,
+    "escapedName": "react-native-weibo",
+    "name": "react-native-weibo",
+    "rawSpec": "^1.0.5",
+    "spec": ">=1.0.5 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-weibo/-/react-native-weibo-1.0.5.tgz",
+  "_shasum": "586b49ebdf4f4826445672a9478ae0bdcfc0fd6b",
+  "_shrinkwrap": null,
+  "_spec": "react-native-weibo@^1.0.5",
+  "_where": "/Users/weixingsun/share",
+  "author": {
+    "name": "lvbingru"
+  },
+  "bugs": {
+    "url": "https://github.com/reactnativecn/react-native-weibo/issues"
+  },
+  "dependencies": {
+    "es6-promisify": "^3.0.0"
+  },
   "description": "新浪微博登录、分享模块",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "586b49ebdf4f4826445672a9478ae0bdcfc0fd6b",
+    "tarball": "https://registry.npmjs.org/react-native-weibo/-/react-native-weibo-1.0.5.tgz"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reactnativecn/react-native-weibo.git"
-  },
+  "gitHead": "d6624216df6a4d0302774934a34da59d5d608984",
+  "homepage": "https://github.com/reactnativecn/react-native-weibo#readme",
   "keywords": [
     "react-native",
     "ios",
@@ -19,13 +69,27 @@
     "share",
     "login"
   ],
-  "author": "lvbingru",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/reactnativecn/react-native-weibo/issues"
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "lvbingru",
+      "email": "lvbingru@gmail.com"
+    },
+    {
+      "name": "tdzl2003",
+      "email": "tdzl2003@gmail.com"
+    }
+  ],
+  "name": "react-native-weibo",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactnativecn/react-native-weibo.git"
   },
-  "homepage": "https://github.com/reactnativecn/react-native-weibo#readme",
-  "dependencies": {
-    "es6-promisify": "^3.0.0"
-  }
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.5"
 }
