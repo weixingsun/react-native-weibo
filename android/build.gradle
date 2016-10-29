@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'
+    }
+}
+
+
 apply plugin: 'com.android.library'
 
 android {
@@ -10,6 +20,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    lintOptions {
+        abortOnError false
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -20,8 +33,15 @@ android {
         jniLibs.srcDirs = ['libs']
     }
 }
-
+repositories {
+    mavenCentral()
+    jcenter()
+}
 dependencies {
-    compile 'com.facebook.react:react-native:0.17.+'
+    compile 'com.facebook.react:react-native:+'
+    //compile 'com.facebook.fresco:fresco:0.11.0'
+    compile 'com.facebook.fresco:drawee:0.11.0'
+    compile 'com.facebook.fresco:animated-base:0.11.0'
+    compile 'com.facebook.fresco:imagepipeline:0.11.0'
     compile files('libs/weiboSDKCore_3.1.2.jar')
 }

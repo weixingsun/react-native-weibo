@@ -62,11 +62,16 @@ import java.util.Date;
 
 import javax.annotation.Nullable;
 
+interface ActivityResultInterface {
+  void callback(int requestCode, int resultCode, Intent data);
+}
+
 /**
  * Created by lvbingru on 12/22/15.
  */
-public class WeiboModule extends ReactContextBaseJavaModule implements ActivityEventListener  {
+public class WeiboModule extends ReactContextBaseJavaModule {
 
+    private WeiboActivityEventListener mActivityEventListener;
     public WeiboModule(ReactApplicationContext reactContext) {
         super(reactContext);
         ApplicationInfo appInfo = null;
@@ -79,6 +84,13 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
             throw new Error("meta-data WB_APPID not found in AndroidManifest.xml");
         }
         this.appId = appInfo.metaData.get("WB_APPID").toString();
+
+        mActivityEventListener = new WeiboActivityEventListener(reactContext, new ActivityResultInterface() {
+          @Override
+          public void callback(int requestCode, int resultCode, Intent data) {
+            onActivityResult(requestCode, resultCode, data);
+          }
+        });
     }
 
     private static final String RCTWBEventName = "Weibo_Resp";
@@ -107,14 +119,14 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
     public void initialize() {
         super.initialize();
         gModule = this;
-        getReactApplicationContext().addActivityEventListener(this);
+        //getReactApplicationContext().addActivityEventListener(this);
     }
 
     @Override
     public void onCatalystInstanceDestroy() {
         super.onCatalystInstanceDestroy();
         gModule = null;
-        getReactApplicationContext().removeActivityEventListener(this);
+        //getReactApplicationContext().removeActivityEventListener(this);
     }
 
     @Override
@@ -187,8 +199,8 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
         callback.invoke();
     }
 
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.w("RNWeibo","onActivityResult() mSinaSsoHandler"+mSinaSsoHandler);
         if (mSinaSsoHandler != null) {
             mSinaSsoHandler.authorizeCallBack(requestCode, resultCode, data);
             mSinaSsoHandler = null;
@@ -419,8 +431,10 @@ public class WeiboModule extends ReactContextBaseJavaModule implements ActivityE
                 return new OrientedDrawable(bitmapDrawable, closeableStaticBitmap.getRotationAngle());
             }
         } else if (closeableImage instanceof CloseableAnimatedImage) {
-            return Fresco.getImagePipelineFactory().getAnimatedDrawableFactory().create(
-                    ((CloseableAnimatedImage) closeableImage).getImageResult());
+            return Fresco.getImagePipelineFactory().getAnimatedFactory().getAnimatedDrawableFactory(getReactApplicationContext()).create(
+                    //((CloseableAnimatedImage) 
+                    closeableImage //).getImageResult()
+                   );
         } else {
             throw new UnsupportedOperationException("Unrecognized image class: " + closeableImage);
         }
